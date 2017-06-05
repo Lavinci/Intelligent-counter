@@ -1,0 +1,58 @@
+C51 COMPILER V9.01   GLOBLE                                                                06/02/2017 22:09:44 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE GLOBLE
+OBJECT MODULE PLACED IN Globle.OBJ
+COMPILER INVOKED BY: D:\软件\源文件\keil 开发软件\keil 4\C51\BIN\C51.EXE Globle.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include "Globle.h"
+   2          
+   3          void Delay1us()         //@11.0592MHz
+   4          {
+   5   1              _nop_();
+   6   1              _nop_();
+   7   1              _nop_();
+   8   1      }
+   9          
+  10          void Delay1ms()         //@11.0592MHz
+  11          {
+  12   1              unsigned char i, j;
+  13   1      
+  14   1              _nop_();
+  15   1              _nop_();
+  16   1              _nop_();
+  17   1              i = 11;
+  18   1              j = 190;
+  19   1              do
+  20   1              {
+  21   2                      while (--j);
+  22   2              } while (--i);
+  23   1      }
+  24          
+  25          
+  26          void DelayUs(uint t)
+  27          {
+  28   1              for(t;t>0;t--)
+  29   1                      Delay1us();
+  30   1      }
+  31          void DelayMs(uint t)
+  32          {
+  33   1              for(t;t>0;t--)
+  34   1                      Delay1ms();
+  35   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     60    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

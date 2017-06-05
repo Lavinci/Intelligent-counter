@@ -1,0 +1,10 @@
+"STARTUP.obj",
+"demo.obj",
+"KeyScan.obj",
+"Lcd.obj",
+"Globle.obj",
+"LED.obj",
+"SN74LS595.obj",
+"Beep.obj" 
+TO "demo" 
+RAMSIZE(256) 

@@ -1,0 +1,69 @@
+C51 COMPILER V9.01   KEYSCAN                                                               06/02/2017 22:09:44 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE KEYSCAN
+OBJECT MODULE PLACED IN KeyScan.OBJ
+COMPILER INVOKED BY: D:\软件\源文件\keil 开发软件\keil 4\C51\BIN\C51.EXE KeyScan.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include "KeyScan.h"
+   2          #include "Beep.h"
+   3          #include "SN74LS595.h"
+   4          
+   5          unsigned char KeyScan()
+   6          {
+   7   1         unsigned char KNum=0;
+   8   1      
+   9   1      
+  10   1              KEY=1;    //没按高电平
+  11   1      
+  12   1              DataSend(0xF8);
+  13   1              if(KEY != 1)
+  14   1              {
+  15   2                      Delay1ms();
+  16   2                      if(KEY != 1)
+  17   2                      {
+  18   3                              
+  19   3                              DataSend(0x78);                         
+  20   3                              if(KEY != 1) KNum=1;
+  21   3                              DataSend(0xB8);
+  22   3                              if(KEY != 1) KNum=2;
+  23   3                              DataSend(0xD8);
+  24   3                              if(KEY != 1) KNum=3;    
+  25   3                              DataSend(0xE8);
+  26   3                              if(KEY != 1) KNum=4;    
+  27   3                              DataSend(0xF8);
+  28   3                              if(KEY != 1) KNum=5;            
+  29   3                      }
+  30   2                      while(KEY != 1)
+  31   2                      {
+  32   3                       Delay1ms();
+  33   3                      }               
+  34   2              } 
+  35   1      
+  36   1              switch(KNum)      //预留按键事件
+  37   1              {
+  38   2              
+  39   2                      default: Beep(1);break;
+  40   2              
+  41   2              }
+  42   1      
+  43   1              return KNum;
+  44   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     90    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+C51 COMPILER V9.01   KEYSCAN                                                               06/02/2017 22:09:44 PAGE 2   
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
