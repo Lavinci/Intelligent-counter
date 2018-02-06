@@ -1,0 +1,12 @@
+"STARTUP.obj",
+"Beep.obj",
+"demo.obj",
+"Globle.obj",
+"KeyScan.obj",
+"Lcd.obj",
+"LED.obj",
+"SN74LS595.obj",
+"Timer.obj",
+"Date.obj" 
+TO "Proj" 
+RAMSIZE(256) 

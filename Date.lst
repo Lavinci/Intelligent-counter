@@ -1,0 +1,78 @@
+C51 COMPILER V9.01   DATE                                                                  08/12/2017 15:15:51 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE DATE
+OBJECT MODULE PLACED IN Date.obj
+COMPILER INVOKED BY: D:\keli\C51\BIN\C51.EXE src\Date.c LARGE ROM(COMPACT) BROWSE DEBUG OBJECTEXTEND PRINT(.\Date.lst) O
+                    -BJECT(Date.obj)
+
+line level    source
+
+   1          
+   2          #include "Date.h"
+   3          #include "Beep.h"
+   4          
+   5          extern float Mi[10];   //保存九个班次的米数
+   6          extern float speed;             //速度
+   7          extern float Total;     //总长
+   8          extern unsigned char  mode;//0 mi,1ma
+   9          
+  10          void DateIn();//从光电编码器得到数据
+  11          
+  12          void DateOut(unsigned char _banci)
+  13          {
+  14   1              unsigned char i;
+  15   1      
+  16   1      
+  17   1       /************启动码******************/
+  18   1              DataSOut(0x55);
+  19   1              DataSOut(0xAA); 
+  20   1              DataSOut(0x20); 
+  21   1      /**************帧长度****************/
+  22   1              DataSOut(0x0C); 
+  23   1      /**************状态码****************/
+  24   1      
+  25   1      //分辨率功能未实现,均为0.1
+  26   1              if(!mode)//mi
+  27   1                      DataSOut(0x01);
+  28   1              else
+  29   1                      DataSOut(0x00);
+  30   1      
+  31   1      /**************计数****************/
+  32   1              DataSOut((long)(Mi[_banci]*10) >>16 );     //高字节      ..6位数高位一定为零
+  33   1              DataSOut(  ((long)(Mi[_banci]*10) >>8)%256   );                 //中字节(头一次见0.0)
+  34   1              DataSOut( (long)(Mi[_banci]*10) %256);  //低字节
+  35   1      /**************速度     ******************/     
+  36   1              DataSOut( (long)(speed)>>8);
+  37   1              DataSOut( (long)(speed) %256);   
+  38   1      /**************班次******************/  
+  39   1              DataSOut(_banci);
+  40   1      /**************校验码****************/                  
+  41   1              DataSOut(0x00);    //没看明白是什么校验码
+  42   1      
+  43   1      /************************************/  
+  44   1      }
+*** WARNING C280 IN LINE 14 OF SRC\DATE.C: 'i': unreferenced local variable
+  45          void DataSOut(unsigned char i)
+  46          {
+  47   1              SBUF=i;
+  48   1              while(!TI);
+  49   1              TI=0; 
+  50   1      }
+*** WARNING C316 IN LINE 50 OF src\Date.c: unterminated conditionals
+
+
+C51 COMPILER V9.01   DATE                                                                  08/12/2017 15:15:51 PAGE 2   
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    256    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----       2
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  2 WARNING(S),  0 ERROR(S)
